@@ -1,4 +1,5 @@
 from pygame import *
+from random import randint
 window = display.set_mode((700, 500))
 display.set_caption('PingPong')
 background = transform.scale(image.load('background.jpg'), (700, 500))
@@ -21,21 +22,21 @@ class GameSprite(sprite.Sprite):
         window.blit(self.image, (self.rect.x, self.rect.y))
 
 class Player(GameSprite):
-   class Player(GameSprite):
+  
     def update_l(self):
         key_presed = key.get_pressed()
    
-        if key_presed[K_w] and self.rect.x > 0:
-            self.rect.x -= self.speed
-        if key_presed[K_s] and self.rect.x < 400:
-            self.rect.x += self.speed
+        if key_presed[K_w] and self.rect.y > 0:
+            self.rect.y -= self.speed
+        if key_presed[K_s] and self.rect.y < 400:
+            self.rect.y += self.speed
     
     def update_r(self):
-   
-        if key_presed[K_UP] and self.rect.x > 0:
-            self.rect.x -= self.speed
-        if key_presed[K_DOWN] and self.rect.x < 400:
-            self.rect.x += self.speed
+        key_presed = key.get_pressed()
+        if key_presed[K_UP] and self.rect.y > 0:
+            self.rect.y -= self.speed
+        if key_presed[K_DOWN] and self.rect.y < 400:
+            self.rect.y += self.speed
 
 
 
@@ -49,9 +50,9 @@ game = True
 while game:
     window.blit(background, (0, 0))
     racket1.reset()
-    racket1.update()
+    racket1.update_l()
     racket2.reset()
-    racket2.update()
+    racket2.update_r()
     ball.reset()
     for e in event.get():
         if e.type == QUIT:
