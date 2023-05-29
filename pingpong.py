@@ -1,7 +1,7 @@
 from pygame import *
 window = display.set_mode((700, 500))
 display.set_caption('PingPong')
-background = transform.scale(image.load(''), (700, 500))
+background = transform.scale(image.load('background.jpg'), (700, 500))
 clock = time.Clock()
 
 
@@ -21,30 +21,43 @@ class GameSprite(sprite.Sprite):
         window.blit(self.image, (self.rect.x, self.rect.y))
 
 class Player(GameSprite):
-    def update(self):
+   class Player(GameSprite):
+    def update_l(self):
         key_presed = key.get_pressed()
    
-        if key_presed[K_LEFT] and self.rect.x > 5:
+        if key_presed[K_w] and self.rect.x > 0:
             self.rect.x -= self.speed
-        if key_presed[K_RIGHT] and self.rect.x < 595:
+        if key_presed[K_s] and self.rect.x < 400:
             self.rect.x += self.speed
-    def fire(self):
-        fire.play()
-        bullet = Bullet('bullet.png', self.rect.x, self.rect.y,20, 50,  20)
-        bullets.add(bullet)
+    
+    def update_r(self):
+   
+        if key_presed[K_UP] and self.rect.x > 0:
+            self.rect.x -= self.speed
+        if key_presed[K_DOWN] and self.rect.x < 400:
+            self.rect.x += self.speed
 
 
 
+
+
+racket1 = Player('racket.png', 20,200,30,100,15)
+racket2 = Player('racket.png', 50,200,30,100,15)
+ball = GameSprite('tenis_ball.png', 300, 200, 50,50, 20)
+finish = False
 game = True
-
 while game:
+    window.blit(background, (0, 0))
+    racket1.reset()
+    racket1.update()
+    racket2.reset()
+    racket2.update()
+    ball.reset()
     for e in event.get():
         if e.type == QUIT:
             game = False
 
 
-
-    window.blit(background, (0, 0))
-
+    
     display.update()
     clock.tick(60)
